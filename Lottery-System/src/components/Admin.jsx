@@ -57,7 +57,7 @@ const Admin = () => {
                 <Button variant="contained"
                     sx={{ mt: 3, mb: 2 }} onClick={() => { localStorage.removeItem('userinfo-Lucky'); window.location.reload(); }}>Signout
                 </Button>
-
+                <h4>Edit numbers</h4>
                 <div className='boxes1' >
                     {numberResult.slice(start + 8, start + 16).map((ele, ind) => (
                         <div className='card1' style={{ padding: '1rem', margin: '0.25rem', fontSize: '2rem', fontWeight: '600' }}>{ele}
@@ -72,10 +72,10 @@ const Admin = () => {
                         </div>
                     ))}
                 </div>
-
+                <h4>Edit color</h4>
                 <div className='boxes1' >
                     {colorResult.slice(start + 4, start + 8).map((ele, ind) => (
-                        <div className='card1' style={{ padding: '1rem', margin: '1rem', fontSize: '2rem', fontWeight: '600' }}><Color colour={ele} />
+                        <div className='card1' style={{ padding: '1rem', margin: '0.25rem', fontSize: '2rem', fontWeight: '600' }}><Color colour={ele} />
                             <div style={{ position: 'relative', fontSize: '1rem', borderColor: 'black' }}>
                                 {/* <button class="button-35" style={{ backgroundColor: 'transparent' }} role="button"> */}
                                 <Avatar1 info={{ iscolor: true, ind: ind + start + 4, val: colorResult[ind + start + 4], editColor: editColor, date: `${prettifyDate(new Date().getTime())} ${time2[ind % 4]}` }} />

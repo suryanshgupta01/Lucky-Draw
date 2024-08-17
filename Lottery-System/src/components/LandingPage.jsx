@@ -29,30 +29,33 @@ const LandingPage = () => {
     }, []);
 
     const isSmall = window.innerWidth < 500
-    console.log(window.innerWidth, isSmall)
+
     return (
         <><div>
             <Navbar />
-            <div style={{ display: 'flex', flexDirection: 'column', marginLeft: !isSmall ? '3rem' : '1.5rem', gap: '2rem' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', alignItems: 'center' }}>
                 <div className=''>
                     <div className='makerow'>
                         <div>
                             <h4>Number Results</h4>
                             <span style={{ color: 'red' }}>You can play this game<br /> between 2am and 4pm everyday</span>
-                            <div className='makerow' style={{ justifyContent: 'center', display: 'grid', gridTemplateColumns: window.innerWidth > 500 ? 'repeat(4, 1fr)' : 'repeat(2, 1fr)', gap: '1rem' }}>
+                            <div className='makecol boxes2'>
                                 {numberResult.slice(start, 45).map((ele, ind) => (
                                     ind > 7 ? null : (
-                                        <div className='makecol card1' style={{ display: 'flex', flexDirection: 'row', padding: '1rem', fontSize: '2rem', fontWeight: '600' }}>
-                                            <div>{numberResult[start + ind]}
-                                                <div style={{ fontSize: '1rem', fontWeight: '600' }}>
-                                                    Yesterday
-                                                </div>
+                                        <div className='makecol card1' style={{ justifyContent: 'center', alignItems: 'center', padding: '1rem', fontSize: '1.3rem', fontWeight: '600' }}>
+                                            <div className='makerow' style={{ justifyContent: 'center', marginRight: '0.5rem', fontSize: '1rem' }}>
+                                                <div>{ind + 1}. ({time[ind]})</div>
                                             </div>
-                                            <div>{numberResult[start + ind + 8]} <div style={{ fontSize: '1rem', fontWeight: '600' }}>
-                                                Today
-                                            </div >
-                                                <div style={{ fontSize: '1.5rem' }}>
-                                                    {time[ind]}
+                                            <div className='makerow'>
+                                                <div style={{ marginRight: '0.5rem' }} >{numberResult[start + ind]}
+                                                    <div style={{ fontSize: '1rem', fontWeight: '600' }}>
+                                                        Yesterday
+                                                    </div>
+                                                </div>
+                                                <div>{numberResult[start + ind + 8]}
+                                                    <div style={{ fontSize: '1rem', fontWeight: '600' }}>
+                                                        Today
+                                                    </div >
                                                 </div>
                                             </div>
                                         </div>
@@ -68,45 +71,32 @@ const LandingPage = () => {
                         <div>
                             <h4>Color Results</h4>
                             <span style={{ color: 'red' }}>You can play this game<br /> between 2am and 2pm everyday</span>
-                            <div className='makerow' style={{ display: 'grid', gridTemplateColumns: window.innerWidth > 500 ? 'repeat(4, 1fr)' : 'repeat(2, 1fr)', gap: '1rem' }}>
+                            <div className='makecol boxes2'>
                                 {colorResult.slice(start, 45).map((ele, ind) => (
                                     ind > 3 ? null : (
-                                        <div className='makecol card1' style={{ display: 'flex', backgroundColor: '#d47328', flexDirection: 'row', padding: '1rem', fontSize: '2rem', fontWeight: '600' }}>
-                                            <div>
-                                                <Color colour={colorResult[start + ind]} />
-                                                <div style={{ fontSize: '1rem', fontWeight: '600' }}>
-                                                    Yesterday
-                                                </div>
+                                        <div className='makecol card1' style={{ backgroundColor: '#d47328', justifyContent: 'center', alignItems: 'center', padding: '1rem', fontSize: '1.3rem', fontWeight: '600' }}>
+                                            <div className='makerow' style={{ justifyContent: 'center', marginRight: '0.5rem', fontSize: '1rem' }}>
+                                                <div>{ind + 1}. ({time2[ind]})</div>
                                             </div>
-                                            <div><Color colour={colorResult[start + ind + 4]} />
-                                                <div style={{ fontSize: '1rem', fontWeight: '600' }}>
-                                                    Today
+                                            <div className='makerow'>
+                                                <div style={{ marginRight: '0.5rem' }} ><Color colour={colorResult[start + ind]} />
+                                                    <div style={{ fontSize: '1rem', fontWeight: '600' }}>
+                                                        Yesterday
+                                                    </div>
                                                 </div>
-                                                <div style={{ fontSize: '1.5rem' }}>
-                                                    {time2[ind]}
+                                                <div><Color colour={colorResult[start + ind + 4]} />
+                                                    <div style={{ fontSize: '1rem', fontWeight: '600' }}>
+                                                        Today
+                                                    </div >
                                                 </div>
                                             </div>
                                         </div>
                                     )
                                 ))}
-
                             </div>
+
                             {/* <Avatar1 info={{ iscolor: true, ind: 1, val: yourColor[1], editColor: editColor }} /> */}
                         </div>
-                        {/* <div style={{ width: '5px', backgroundColor: 'black', height: '250px' }}></div> */}
-                        {/* <div>
-                            <h4>Official color</h4>
-                            <div className='makerow'>
-                            {colorResult.map((ele, ind) => (
-                                <div className='makecol' style={{ padding: '1rem', fontSize: '2rem', fontWeight: '600' }}>
-                                <Color colour={ele} />
-                                <div style={{ fontSize: '1rem', fontWeight: '600' }}>
-                                            {ind == 0 ? 'Yesterday' : 'Today'}
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                            </div> */}
                     </div>
                 </div>
 
@@ -116,28 +106,6 @@ const LandingPage = () => {
                 <Avatar2 info={{ numberArr: numberResult }} />
             </div>
             <div>
-
-                {/* <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', marginLeft: '3rem', display: 'none' }} >
-                    {users.map((ele, _) => (
-                        <div className='card1' style={{ padding: '0.25rem', margin: '4rem', fontSize: '2rem', fontWeight: '600' }}>
-                            <div>{ele?.name}</div><hr style={{ height: '5px', backgroundColor: 'black', width: '104.5%', marginLeft: '-4px' }} />
-                            <div>
-                                {ele?.numbers.map((ele1, ind) => (
-                                    <div className='makerow' style={{ padding: '0.25rem', fontSize: '2rem', fontWeight: '600' }}>{ele1}
-                                        <div style={{ fontSize: '1rem', fontWeight: '600' }}>
-                                            {ind == 0 ? 'Yesterday' : 'Today'}
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                            <div>
-                                {ele?.colors.map((ele, ind) => (
-                                    <div className='makerow' style={{ padding: '0.25rem', fontSize: '2rem' }}><Color colour={ele} /><div style={{ fontSize: '1rem', fontWeight: '600' }}>{ind == 0 ? 'Yesterday' : 'Today'}</div></div>
-                                ))}
-                            </div>
-                        </div>
-                    ))}
-                </div> */}
             </div>
         </div>
         </>

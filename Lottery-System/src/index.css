@@ -39,10 +39,21 @@
   margin-right: 2rem;
 }
 
+.boxes2 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  width: 80vw;
+}
+
 @media (max-width: 768px) {
   .boxes1 {
     grid-template-columns: repeat(2, 1fr);
     margin-left: 1rem;
     margin-right: 1rem;
+  }
+
+  .boxes2 {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
