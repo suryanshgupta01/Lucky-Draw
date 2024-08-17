@@ -1,0 +1,48 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+.makerow {
+  display: flex;
+  flex-direction: row;
+  /* display: inline-block; */
+  /* margin-bottom: 10px; */
+}
+
+.makecol {
+  display: flex;
+  flex-direction: column;
+  /* display: inline-block; */
+  /* margin-bottom: 10px; */
+}
+
+.card1 {
+  background-color: #ebd1ad;
+  border-radius: 20px;
+}
+
+.boxes1 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-left: 2rem;
+  margin-right: 2rem;
+}
+
+@media (max-width: 768px) {
+  .boxes1 {
+    grid-template-columns: repeat(2, 1fr);
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+}
