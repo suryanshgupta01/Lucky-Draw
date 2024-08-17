@@ -7,6 +7,7 @@ import ModalDialog from '@mui/joy/ModalDialog';
 import DialogTitle from '@mui/joy/DialogTitle';
 import DialogContent from '@mui/joy/DialogContent';
 import Color from './Color';
+import { TextField } from '@mui/material';
 
 export default function Avatar1({ info }) {
     const [open, setOpen] = useState(false);
@@ -64,7 +65,17 @@ export default function Avatar1({ info }) {
                                 <DialogTitle>Update value for {info.date}</DialogTitle>
                                 <div style={{ height: '15vh', alignItems: 'center', display: 'flex' }}>
                                     <input type="range" id="val" name="val" min="1" style={{ width: '70%', marginRight: '2rem' }} max="100" value={val} step="1" onChange={(e) => setval(e.target.value)} />
-                                    <label for="val">Value : {val} </label>
+                                    <TextField className='input'
+                                        id="outlined-number"
+                                        label="Number"
+                                        onChange={(e) => setval(e.target.value)}
+                                        defaultValue={val}
+                                        value={val}
+                                        type="number"
+                                        InputLabelProps={{
+                                            shrink: true,
+                                        }} />
+                                    <label for="val"> </label>
                                 </div>
 
                                 <DialogContent>

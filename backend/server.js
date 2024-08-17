@@ -57,23 +57,23 @@ app.post('/arr', async (req, res) => {
     arr.save();
     res.send("array saved")
 })
-
+const ID = "66c09248cb2dc7cd6311522b"
 app.get('/arruser', async (req, res) => {
-    const arr = await Result.findById("66bdfe743ac296c384d40854")
+    const arr = await Result.findById(ID)
     arr.colorArr = arr.colorArr.slice(0, 46)
     arr.numberArr = arr.numberArr.slice(0, 46)
     res.send(arr)
 })
 
 app.get('/arr', async (req, res) => {
-    const arr = await Result.findById("66bdfe743ac296c384d40854")
+    const arr = await Result.findById(ID)
     res.send(arr)
 })
 
 app.post('/edit', async (req, res) => {
     const { id, thing, value } = req.body;
     try {
-        const arr = await Result.findById("66bdfe743ac296c384d40854")
+        const arr = await Result.findById(ID)
         if (thing == 'color') {
             arr.colorArr[id] = value
         } else if (thing == 'number') {

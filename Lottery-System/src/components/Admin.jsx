@@ -59,30 +59,30 @@ const Admin = () => {
                 </Button>
 
                 <div className='boxes1' >
-                    {numberResult.slice(start, start + 16).map((ele, ind) => (
+                    {numberResult.slice(start + 8, start + 16).map((ele, ind) => (
                         <div className='card1' style={{ padding: '1rem', margin: '0.25rem', fontSize: '2rem', fontWeight: '600' }}>{ele}
                             <div style={{ position: 'relative', fontSize: '1rem', borderColor: 'black' }}>
                                 {/* <button class="button-35" style={{ backgroundColor: 'transparent' }} role="button"> */}
-                                <Avatar1 info={{ ind: ind + start, val: numberResult[ind + start], editNumber: editNumber, date: `${ind < 8 ? prettifyDate(new Date().getTime() + (-1) * 1000 * 24 * 3600) : prettifyDate(new Date().getTime())} ${time[ind % 8]}`, time: time[ind % 8] }} />
+                                <Avatar1 info={{ ind: ind + start + 8, val: numberResult[ind + start + 8], editNumber: editNumber, date: `${ind < 8 ? prettifyDate(new Date().getTime() + (-1) * 1000 * 24 * 3600) : prettifyDate(new Date().getTime())} ${time[ind % 8]}`, time: time[ind % 8] }} />
                                 {/* Edit value</button> */}
                             </div>
                             <div style={{ fontSize: '1rem', fontWeight: '600' }}>
-                                {ind < 8 ? prettifyDate(new Date().getTime() + (-1) * 1000 * 24 * 3600) : prettifyDate(new Date().getTime())} {time[ind % 8]}
+                                {prettifyDate(new Date().getTime())} {time[ind % 8]}
                             </div>
                         </div>
                     ))}
                 </div>
 
                 <div className='boxes1' >
-                    {colorResult.slice(start, start + 8).map((ele, ind) => (
+                    {colorResult.slice(start + 4, start + 8).map((ele, ind) => (
                         <div className='card1' style={{ padding: '1rem', margin: '1rem', fontSize: '2rem', fontWeight: '600' }}><Color colour={ele} />
                             <div style={{ position: 'relative', fontSize: '1rem', borderColor: 'black' }}>
                                 {/* <button class="button-35" style={{ backgroundColor: 'transparent' }} role="button"> */}
-                                <Avatar1 info={{ iscolor: true, ind: ind + start, val: colorResult[ind + start], editColor: editColor, date: `${ind < 4 ? prettifyDate(new Date().getTime() + (-1) * 1000 * 24 * 3600) : prettifyDate(new Date().getTime())} ${time2[ind % 4]}` }} />
+                                <Avatar1 info={{ iscolor: true, ind: ind + start + 4, val: colorResult[ind + start + 4], editColor: editColor, date: `${prettifyDate(new Date().getTime())} ${time2[ind % 4]}` }} />
                                 {/* Edit value</button> */}
                             </div>
                             <div style={{ fontSize: '1rem', fontWeight: '600' }}>
-                                {ind < 4 ? prettifyDate(new Date().getTime() + (-1) * 1000 * 24 * 3600) : prettifyDate(new Date().getTime())} {time2[ind % 4]}
+                                {prettifyDate(new Date().getTime())} {time2[ind % 4]}
                                 {/* {prettifyDate(new Date().getTime() + (ind - 1) * 1000 * 24 * 3600)} */}
                             </div>
                         </div>
