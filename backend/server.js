@@ -15,10 +15,20 @@ cron.schedule('0 0 * * *', async () => {
     const arr = await Result.findById("66bdfe743ac296c384d40854")
     const colorArr = arr.colorArr
     const numberArr = arr.numberArr
-    const a = colorArr.shift()
-    const b = numberArr.shift()
-    colorArr.push('gray')
-    numberArr.push('XX')
+    const numlen = 8
+    const colorlen = 4
+    for (let i = 0; i < colorlen; i++) {
+        const a = colorArr.shift()
+    }
+    for (let i = 0; i < colorlen; i++) {
+        colorArr.push('gray')
+    }
+    for (let i = 0; i < numlen; i++) {
+        const a = numberArr.shift()
+    }
+    for (let i = 0; i < numlen; i++) {
+        numberArr.push('XX')
+    }
     arr.colorArr = colorArr
     arr.numberArr = numberArr
     arr.save()
@@ -51,7 +61,7 @@ app.post('/arr', async (req, res) => {
 app.get('/arruser', async (req, res) => {
     const arr = await Result.findById("66bdfe743ac296c384d40854")
     arr.colorArr = arr.colorArr.slice(0, 46)
-    arr.numberArr = arr.numberArr.slice(0,46)
+    arr.numberArr = arr.numberArr.slice(0, 46)
     res.send(arr)
 })
 
