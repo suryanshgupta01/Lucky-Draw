@@ -9,7 +9,8 @@ const LandingPage = () => {
 
     const [colorResult, setcolorResult] = useState([])
     const [numberResult, setnumberResult] = useState([]);
-    const start = 29
+    const [start, setStart] = useState()
+    const [startcolor, setStartcolor] = useState()
     const time = ["2AM", "4AM", "6AM", "8AM", "10AM", "12PM", "2PM", "4PM"]
     const time2 = ["2AM", "6AM", "10AM", "2PM"]
 
@@ -19,7 +20,8 @@ const LandingPage = () => {
             const data = await response.json()
             setnumberResult(data.numberArr)
             setcolorResult(data.colorArr)
-            console.log(data.numberArr)
+            setStart(data.numberArr.length - 17)
+            setStartcolor(data.colorArr.length - 17)
         } catch (error) {
             console.error('Error:', error)
         }
@@ -27,8 +29,6 @@ const LandingPage = () => {
     useEffect(() => {
         getArray()
     }, []);
-
-    const isSmall = window.innerWidth < 500
 
     return (
         <><div>
@@ -40,7 +40,7 @@ const LandingPage = () => {
                             <h4>Number Results</h4>
                             <span style={{ color: 'red' }}>You can play this game<br /> between 2am and 4pm everyday</span>
                             <div className='makecol boxes2'>
-                                {numberResult.slice(start, 45).map((ele, ind) => (
+                                {numberResult.slice(start, start + 16).map((ele, ind) => (
                                     ind > 7 ? null : (
                                         <div className='makecol card1' style={{ justifyContent: 'center', alignItems: 'center', padding: '1rem', fontSize: '1.3rem', fontWeight: '600' }}>
                                             <div className='makerow' style={{ justifyContent: 'center', marginRight: '0.5rem', fontSize: '1rem' }}>
@@ -72,19 +72,19 @@ const LandingPage = () => {
                             <h4>Color Results</h4>
                             <span style={{ color: 'red' }}>You can play this game<br /> between 2am and 2pm everyday</span>
                             <div className='makecol boxes2'>
-                                {colorResult.slice(start, 45).map((ele, ind) => (
+                                {colorResult.slice(startcolor, startcolor + 8).map((ele, ind) => (
                                     ind > 3 ? null : (
                                         <div className='makecol card1' style={{ backgroundColor: '#d47328', justifyContent: 'center', alignItems: 'center', padding: '1rem', fontSize: '1.3rem', fontWeight: '600' }}>
                                             <div className='makerow' style={{ justifyContent: 'center', marginRight: '0.5rem', fontSize: '1rem' }}>
                                                 <div>{ind + 1}. ({time2[ind]})</div>
                                             </div>
                                             <div className='makerow'>
-                                                <div style={{ marginRight: '0.5rem' }} ><Color colour={colorResult[start + ind]} />
+                                                <div style={{ marginRight: '0.5rem' }} ><Color colour={colorResult[startcolor + ind]} />
                                                     <div style={{ fontSize: '1rem', fontWeight: '600' }}>
                                                         Yesterday
                                                     </div>
                                                 </div>
-                                                <div><Color colour={colorResult[start + ind + 4]} />
+                                                <div><Color colour={colorResult[startcolor + ind + 4]} />
                                                     <div style={{ fontSize: '1rem', fontWeight: '600' }}>
                                                         Today
                                                     </div >

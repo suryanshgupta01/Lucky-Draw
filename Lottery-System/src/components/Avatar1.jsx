@@ -8,6 +8,7 @@ import DialogTitle from '@mui/joy/DialogTitle';
 import DialogContent from '@mui/joy/DialogContent';
 import Color from './Color';
 import { TextField } from '@mui/material';
+import axios from 'axios'
 
 export default function Avatar1({ info }) {
     const [open, setOpen] = useState(false);
@@ -15,13 +16,110 @@ export default function Avatar1({ info }) {
     const [isGray, setisGray] = useState(false);
     const [isRed, setisRed] = useState(false);
     const [isBlue, setisBlue] = useState(false);
+    const userinfo = JSON.parse(localStorage.getItem('userinfo-Lucky'))
+    const [password, setPassword] = useState(userinfo?.password || '');
+    const [email, setEmail] = useState(userinfo?.email || '');
     const start = 29
-
-    const handleSubmit = (value) => {
-        const ind = localStorage.getItem('colorind') || 0
-        info.editColor(ind, value);
+    const saveNewValues = () => {
+        if (password.trim().length < 4) {
+            alert("Password should be at least 4 characters long")
+            return
+        }
+        axios.post('http://localhost:4000/changepassword', {
+            userid: userinfo._id,
+            password: password,
+            email: email
+        }).catch((err) => {
+            alert(err)
+            return
+        })
+        userinfo.password = password
+        localStorage.setItem('userinfo-Lucky', JSON.stringify(userinfo))
+        window.location.reload()
     }
+    if (info?.isPassword) {
+        return (
+            <React.Fragment >
+                <Button color="primary" onClick={() => setOpen(true)} style={{ height: '40%', marginTop: '1.5rem' }}>
+                    Change Password
+                </Button>
+                <Transition in={open} timeout={100}>
+                    {(state) => (
+                        <Modal
+                            keepMounted
+                            open={!['exited', 'exiting'].includes(state)}
+                            onClose={() => setOpen(false)}
+                            slotProps={{
+                                backdrop: {
+                                    sx: {
+                                        opacity: 0,
+                                        backdropFilter: 'none',
+                                        transition: `opacity 400ms, backdrop-filter 400ms`,
+                                        ...{
+                                            entering: { opacity: 1, backdropFilter: 'blur(8px)' },
+                                            entered: { opacity: 1, backdropFilter: 'blur(8px)' },
+                                        }[state],
+                                    },
+                                },
+                            }}
+                            sx={{
+                                visibility: state === 'exited' ? 'hidden' : 'visible',
+                            }}
+                        >
+                            <ModalDialog
+                                sx={{
+                                    opacity: 0,
+                                    width: '40vw',
+                                    transition: `opacity 300ms`,
+                                    ...{
+                                        entering: { opacity: 1 },
+                                        entered: { opacity: 1 },
+                                    }[state],
+                                }}
+                            >
+                                <DialogTitle>Change password</DialogTitle>
+                                <div style={{ height: '25vh', alignItems: 'center', justifyContent: 'center', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                                    <TextField className='input'
+                                        id="outlined-number"
+                                        label="Email Address"
+                                        style={{ width: '80%' }}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        defaultValue={userinfo.email}
+                                        value={email}
+                                        type="text"
+                                        disabled="true"
+                                        InputLabelProps={{
+                                            shrink: true,
+                                        }} />
+                                    <TextField className='input'
+                                        id="outlined-number"
+                                        label="Password"
+                                        style={{ width: '80%' }}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        defaultValue={userinfo.password}
+                                        value={password}
+                                        type="password"
+                                        InputLabelProps={{
+                                            shrink: true,
+                                        }} />
+                                </div>
 
+                                <DialogContent>
+                                    <Button color="danger" onClick={() => setOpen(false)}>
+                                        Cancel
+                                    </Button>
+                                    <Button color="primary" onClick={() => { saveNewValues(); setOpen(false) }}>
+                                        Save
+                                    </Button>
+                                </DialogContent>
+
+                            </ModalDialog>
+                        </Modal>
+                    )}
+                </Transition>
+            </React.Fragment>
+        )
+    }
     if (!info.iscolor)
         return (
             <React.Fragment >

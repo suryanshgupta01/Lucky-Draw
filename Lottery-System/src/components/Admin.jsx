@@ -9,14 +9,14 @@ import Navbar from './Navbar'
 const Admin = () => {
     const [colorResult, setcolorResult] = useState([])
     const [numberResult, setnumberResult] = useState([])
-    const start = 29
+    const [start, setStart] = useState()
+    const [startcolor, setStartcolor] = useState()
     const prettifyDate = (time) => {
         const date = new Date(time)
         const options = { year: 'numeric', month: 'long', day: 'numeric' }
         return date.toLocaleString('en-US', options)
     }
     const editNumber = (id, val) => {
-        // changeInDB("number", id, val)
         axios.post('http://localhost:4000/edit', {
             thing: "number",
             id: Number(id),
@@ -25,7 +25,6 @@ const Admin = () => {
         setnumberResult(prev => prev.map((num, index) => (index === id ? val : num)))
     }
     const editColor = (id, val) => {
-        // changeInDB("color", id, val)
         axios.post('http://localhost:4000/edit', {
             thing: "color",
             id: Number(id),
@@ -39,6 +38,8 @@ const Admin = () => {
             const data = await response.json()
             setnumberResult(data.numberArr)
             setcolorResult(data.colorArr)
+            setStart(data.numberArr.length - 31)
+            setStartcolor(data.colorArr.length - 31)
             console.log(data.numberArr)
         } catch (error) {
             console.error('Error:', error)
@@ -49,14 +50,18 @@ const Admin = () => {
     useEffect(() => {
         getArray()
     }, []);
-    const isSmall = window.innerWidth < 500
+    if (!start || !startcolor) return <>Loading...</>
+    console.log(start)
     return (
         <>
             <Navbar />
             <div>
-                <Button variant="contained"
-                    sx={{ mt: 3, mb: 2 }} onClick={() => { localStorage.removeItem('userinfo-Lucky'); window.location.reload(); }}>Signout
-                </Button>
+                <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+                    <Button variant="contained"
+                        sx={{ mt: 3, mb: 2 }} onClick={() => { localStorage.removeItem('userinfo-Lucky'); window.location.reload(); }}>Signout
+                    </Button>
+                    <Avatar1 info={{ isPassword: true }} />
+                </div>
                 <h4>Edit numbers</h4>
                 <div className='boxes1' >
                     {numberResult.slice(start + 8, start + 16).map((ele, ind) => (
@@ -74,11 +79,11 @@ const Admin = () => {
                 </div>
                 <h4>Edit color</h4>
                 <div className='boxes1' >
-                    {colorResult.slice(start + 4, start + 8).map((ele, ind) => (
+                    {colorResult.slice(startcolor + 4, startcolor + 8).map((ele, ind) => (
                         <div className='card1' style={{ padding: '1rem', margin: '0.25rem', fontSize: '2rem', fontWeight: '600' }}><Color colour={ele} />
                             <div style={{ position: 'relative', fontSize: '1rem', borderColor: 'black' }}>
                                 {/* <button class="button-35" style={{ backgroundColor: 'transparent' }} role="button"> */}
-                                <Avatar1 info={{ iscolor: true, ind: ind + start + 4, val: colorResult[ind + start + 4], editColor: editColor, date: `${prettifyDate(new Date().getTime())} ${time2[ind % 4]}` }} />
+                                <Avatar1 info={{ iscolor: true, ind: ind + startcolor + 4, val: colorResult[ind + startcolor + 4], editColor: editColor, date: `${prettifyDate(new Date().getTime())} ${time2[ind % 4]}` }} />
                                 {/* Edit value</button> */}
                             </div>
                             <div style={{ fontSize: '1rem', fontWeight: '600' }}>

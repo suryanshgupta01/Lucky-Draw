@@ -12,20 +12,20 @@ app.use(cors());
 app.use(express.json())
 cron.schedule('0 0 * * *', async () => {
     console.log('New day');
-    const arr = await Result.findById("66bdfe743ac296c384d40854")
+    const arr = await Result.findOne()
     const colorArr = arr.colorArr
     const numberArr = arr.numberArr
     const numlen = 8
     const colorlen = 4
-    for (let i = 0; i < colorlen; i++) {
-        const a = colorArr.shift()
-    }
+    // for (let i = 0; i < colorlen; i++) {
+    //     const a = colorArr.shift()
+    // }
     for (let i = 0; i < colorlen; i++) {
         colorArr.push('gray')
     }
-    for (let i = 0; i < numlen; i++) {
-        const a = numberArr.shift()
-    }
+    // for (let i = 0; i < numlen; i++) {
+    //     const a = numberArr.shift()
+    // }
     for (let i = 0; i < numlen; i++) {
         numberArr.push('XX')
     }
@@ -57,11 +57,12 @@ app.post('/arr', async (req, res) => {
     arr.save();
     res.send("array saved")
 })
-const ID = "66c0bc387056e1acc35e2d98"
+
 app.get('/arruser', async (req, res) => {
     const arr = await Result.findOne()
-    arr.colorArr = arr.colorArr.slice(0, 46)
-    arr.numberArr = arr.numberArr.slice(0, 46)
+    const len = arr.numberArr.length - 14;
+    arr.colorArr = arr.colorArr.slice(0, len)
+    arr.numberArr = arr.numberArr.slice(0, len)
     res.send(arr)
 })
 
@@ -86,6 +87,18 @@ app.post('/edit', async (req, res) => {
         res.status(500).send("Error editing")
     }
 
+})
+app.post('/changepassword', async (req, res) => {
+    const { userid, password, email } = req.body
+    const user = await User.findById(userid)
+    if (user && user.email == email && user.isAdmin) {
+        user.password = password
+        user.save()
+        res.send("Password changed successfully")
+        return
+    } else {
+        res.status(401).send("Unauthorized")
+    }
 })
 app.listen(PORT, () => {
     console.log('Server is running on port', PORT);
