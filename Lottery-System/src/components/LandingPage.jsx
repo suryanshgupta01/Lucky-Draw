@@ -3,6 +3,8 @@ import Navbar from './Navbar';
 import Color from './Color';
 import Avatar1 from './Avatar1';
 import Avatar2 from './Avatar2';
+import { Button } from '@mui/material';
+import { Link, useNavigate } from 'react-router-dom'
 
 
 const LandingPage = () => {
@@ -11,6 +13,7 @@ const LandingPage = () => {
     const [numberResult, setnumberResult] = useState([]);
     const [start, setStart] = useState()
     const [startcolor, setStartcolor] = useState()
+    const navigate = useNavigate()
     const time = ["2AM", "4AM", "6AM", "8AM", "10AM", "12PM", "2PM", "4PM"]
     const time2 = ["2AM", "6AM", "10AM", "2PM"]
 
@@ -20,6 +23,8 @@ const LandingPage = () => {
             const data = await response.json()
             setnumberResult(data.numberArr)
             setcolorResult(data.colorArr)
+            localStorage.setItem('colorArr', JSON.stringify(data.colorArr))
+            localStorage.setItem('numberArr', JSON.stringify(data.numberArr))
             setStart(data.numberArr.length - 17)
             setStartcolor(data.colorArr.length - 17)
         } catch (error) {
@@ -102,8 +107,14 @@ const LandingPage = () => {
 
             </div>
             <div style={{ margin: '2rem', display: 'flex', justifyContent: 'space-around' }} >
-                <Avatar2 info={{ colorArr: colorResult }} />
-                <Avatar2 info={{ numberArr: numberResult }} />
+                <Button variant="contained"
+                    sx={{ mt: 3, mb: 2 }} onClick={() => { navigate('/color-chart') }}>Past color chart
+                </Button>
+                <Button variant="contained"
+                    sx={{ mt: 3, mb: 2 }} onClick={() => { navigate('/number-chart') }}>Past number chart
+                </Button>
+                {/* <Avatar2 info={{ colorArr: colorResult }} />
+                <Avatar2 info={{ numberArr: numberResult }} /> */}
             </div>
             <div>
             </div>

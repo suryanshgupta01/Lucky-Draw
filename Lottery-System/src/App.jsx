@@ -8,6 +8,8 @@ import LandingPage from './components/LandingPage';
 import Admin from './components/Admin';
 import Errorpage from './components/Errorpage';
 import Signin from './components/Signin';
+import ColorChart from './components/ColorChart';
+import NumberChart from './components/NumberChart';
 
 function App() {
   const baseURL = "http://localhost:4000"
@@ -26,6 +28,13 @@ function App() {
     }, {
       path: '/admin',
       element: !loginsuccessfully ? <Signin /> : <Admin />
+    },
+    {
+      path: '/color-chart',
+      element: <ColorChart />
+    }, {
+      path: '/number-chart',
+      element: <NumberChart />
     },
     {
       path: "*",

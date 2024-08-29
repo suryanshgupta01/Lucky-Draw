@@ -13,25 +13,19 @@ app.use(express.json())
 cron.schedule('0 0 * * *', async () => {
     console.log('New day');
     const arr = await Result.findOne()
-    const colorArr = arr.colorArr
-    const numberArr = arr.numberArr
+    let colorArr = arr.colorArr
+    let numberArr = arr.numberArr
     const numlen = 8
     const colorlen = 4
-    // for (let i = 0; i < colorlen; i++) {
-    //     const a = colorArr.shift()
-    // }
     for (let i = 0; i < colorlen; i++) {
         colorArr.push('gray')
     }
-    // for (let i = 0; i < numlen; i++) {
-    //     const a = numberArr.shift()
-    // }
     for (let i = 0; i < numlen; i++) {
         numberArr.push('XX')
     }
     arr.colorArr = colorArr
     arr.numberArr = numberArr
-    arr.save()
+    await arr.save()
     console.log("new array saved successfully")
 }, {
     scheduled: true,
