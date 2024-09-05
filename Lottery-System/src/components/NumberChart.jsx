@@ -1,5 +1,6 @@
 import React from 'react'
 import Color from './Color'
+import Navbar from './Navbar'
 
 const NumberChart = () => {
     const numberArr = JSON.parse(localStorage.getItem('numberArr')) || []
@@ -7,14 +8,15 @@ const NumberChart = () => {
     const time = ["2AM", "4AM", "6AM", "8AM", "10AM", "12PM", "2PM", "4PM"].reverse()
 
     const prettifyDate = (i, parts) => {
-        const time = new Date().getTime() - (i + 1) * 3600 * 24 * 1000;
+        const time = new Date().getTime() - (i) * 3600 * 24 * 1000;
         const date = new Date(time)
         const options = { month: 'short', day: 'numeric' }
         return date.toLocaleString('en-US', options)
     }
     return (
         <div>
-            <h1>Past color chart</h1>
+            <Navbar/>
+            <h1>Past number chart</h1>
             <div style={{ maxHeight: '100vh', overflowY: 'auto', textAlign: 'center' }}>
 
                 <table className="table table-hover table-striped" >
@@ -27,11 +29,11 @@ const NumberChart = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {Array.from({ length: Math.floor((numberArr?.length - 9) / 8) }).map((_, i) => (
+                        {Array.from({ length: Math.floor((numberArr?.length - 1) / 8) }).map((_, i) => (
                             <tr>
                                 <td>{prettifyDate(i, 8)}</td>
                                 {Array.from({ length: 8 }).map((_, ind) => {
-                                    return (<td><strong>{numberArr?.slice(0, (numberArr?.length - 9)).reverse()[i * 8 + ind]}</strong></td>)
+                                    return (<td><strong>{numberArr?.slice(0, (numberArr?.length - 1)).reverse()[i * 8 + ind]}</strong></td>)
                                 })}
                             </tr>
                         ))}

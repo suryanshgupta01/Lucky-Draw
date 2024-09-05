@@ -40,7 +40,7 @@ const Admin = () => {
             setcolorResult(data.colorArr)
             setStart(data.numberArr.length - 31)
             setStartcolor(data.colorArr.length - 31)
-            console.log(data.numberArr)
+            console.log(data.colorArr)
         } catch (error) {
             console.error('Error:', error)
         }

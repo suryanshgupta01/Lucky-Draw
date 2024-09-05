@@ -26,7 +26,8 @@ const LandingPage = () => {
             localStorage.setItem('colorArr', JSON.stringify(data.colorArr))
             localStorage.setItem('numberArr', JSON.stringify(data.numberArr))
             setStart(data.numberArr.length - 17)
-            setStartcolor(data.colorArr.length - 17)
+            setStartcolor(data.colorArr.length - 31)
+            console.log(data.colorArr)
         } catch (error) {
             console.error('Error:', error)
         }

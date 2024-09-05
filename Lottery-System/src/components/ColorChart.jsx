@@ -1,17 +1,19 @@
 import React from 'react'
 import Color from './Color'
+import Navbar from './Navbar'
 
 const ColorChart = () => {
     const colorArr = JSON.parse(localStorage.getItem('colorArr')) || []
     const time2 = ["2AM", "6AM", "10AM", "2PM"].reverse()
     const prettifyDate = (i, parts) => {
-        const time = new Date().getTime() - (i + 1) * 3600 * 24 * 1000;
+        const time = new Date().getTime() - (i) * 3600 * 24 * 1000;
         const date = new Date(time)
         const options = { month: 'short', day: 'numeric' }
         return date.toLocaleString('en-US', options)
     }
     return (
         <div>
+            <Navbar />
             <h1>Past color chart</h1>
             <div style={{ maxHeight: '100vh', overflowY: 'auto', textAlign: 'center' }}>
 
@@ -25,11 +27,11 @@ const ColorChart = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {Array.from({ length: Math.floor((colorArr?.length - 9 - 4) / 4) }).map((_, i) => (
+                        {Array.from({ length: Math.floor((colorArr?.length - 7 - 16) / 4) }).map((_, i) => (
                             <tr>
                                 <td>{prettifyDate(i, 4)}</td>
                                 {Array.from({ length: 4 }).map((_, ind) => {
-                                    return (<td><Color colour={colorArr?.slice(0, (colorArr?.length - 9 - 4)).reverse()[i * 4 + ind]} /></td>)
+                                    return (<td><Color colour={colorArr?.slice(0, (colorArr?.length - 7 - 16)).reverse()[i * 4 + ind]} /></td>)
                                 })}
                             </tr>
                         ))}
