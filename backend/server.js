@@ -10,7 +10,9 @@ var cron = require('node-cron');
 
 app.use(cors());
 app.use(express.json())
-cron.schedule('0 0 * * *', async () => {
+const patternNextday = '0 0 * * *'
+const patternNow = '*/10 * * * * *'
+cron.schedule(patternNextday, async () => {
     console.log('New day');
     const arr = await Result.findOne()
     let colorArr = arr.colorArr
