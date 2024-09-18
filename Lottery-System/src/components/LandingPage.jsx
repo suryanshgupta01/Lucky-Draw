@@ -19,7 +19,7 @@ const LandingPage = () => {
 
     const getArray = async () => {
         try {
-            const response = await fetch('http://localhost:4000/arruser')
+            const response = await fetch('https://lottery-mangement-system-1.onrender.com/arruser')
             const data = await response.json()
             setnumberResult(data.numberArr)
             setcolorResult(data.colorArr)

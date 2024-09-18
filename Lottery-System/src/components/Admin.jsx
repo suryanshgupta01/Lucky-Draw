@@ -17,7 +17,7 @@ const Admin = () => {
         return date.toLocaleString('en-US', options)
     }
     const editNumber = (id, val) => {
-        axios.post('http://localhost:4000/edit', {
+        axios.post('https://lottery-mangement-system-1.onrender.com/edit', {
             thing: "number",
             id: Number(id),
             value: val
@@ -25,7 +25,7 @@ const Admin = () => {
         setnumberResult(prev => prev.map((num, index) => (index === id ? val : num)))
     }
     const editColor = (id, val) => {
-        axios.post('http://localhost:4000/edit', {
+        axios.post('https://lottery-mangement-system-1.onrender.com/edit', {
             thing: "color",
             id: Number(id),
             value: val
@@ -34,7 +34,7 @@ const Admin = () => {
     }
     const getArray = async () => {
         try {
-            const response = await fetch('http://localhost:4000/arr')
+            const response = await fetch('https://lottery-mangement-system-1.onrender.com/arr')
             const data = await response.json()
             setnumberResult(data.numberArr)
             setcolorResult(data.colorArr)

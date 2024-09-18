@@ -25,7 +25,7 @@ export default function Avatar1({ info }) {
             alert("Password should be at least 4 characters long")
             return
         }
-        axios.post('http://localhost:4000/changepassword', {
+        axios.post('https://lottery-mangement-system-1.onrender.com/changepassword', {
             userid: userinfo._id,
             password: password,
             email: email
